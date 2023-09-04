@@ -2,14 +2,14 @@ import datetime as dt
 
 import pytest
 
-from .calc_price import (
+from .sample_data import sample_scores
+from ..source.calc_price import (
     calc_costs,
     calc_doc_size,
     calc_int_size,
     calc_list_size,
     calc_doc_request_units,
 )
-from .sample_data import sample_scores
 
 
 @pytest.mark.parametrize("n, expected_size", [(1, 2), (1_000_000, 5)])

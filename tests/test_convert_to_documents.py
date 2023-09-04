@@ -1,10 +1,10 @@
 from datetime import date, datetime, timedelta
 
-from .convert_to_documents import convert_to_dynamodb_documents
 from .sample_data import sample_scores
+from ..source.convert_to_documents import convert_to_dynamodb_documents
 
 
-def test_creates_document_for_every_hour():
+def test_creates_document_for_every_12_hours():
     documents = convert_to_dynamodb_documents(
         user_id=1, day=date(2022, 12, 23), activity_scores=sample_scores
     )
@@ -22,7 +22,7 @@ def test_passes_user_id_to_all_documents():
     assert all(doc["u"] == USER_ID for doc in documents)
 
 
-def test_has_all_activity_scores_for_each_hour():
+def test_has_all_activity_scores_for_each_12_hours():
     HOURS_IN_CHUNK = 12
     CHUNK_SIZE = 120 * HOURS_IN_CHUNK
 
