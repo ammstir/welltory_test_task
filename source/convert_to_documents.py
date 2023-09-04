@@ -13,7 +13,7 @@ def convert_to_dynamodb_documents(
     current_time = dt.datetime.combine(day, dt.datetime.min.time())
 
     documents = []
-    # generate docs for every hour with start at 00 min
+    # generate docs for every hours segment with start at 00 min
     for i in range(0, total_scores_amount, CHUNK_SIZE):
         scores = activity_scores[i : i + CHUNK_SIZE]
         doc = {
@@ -22,7 +22,7 @@ def convert_to_dynamodb_documents(
             "v": scores,
         }
         documents.append(doc)
-        # go to next hour
+        # go to next hours segment
         current_time += dt.timedelta(hours=HOURS_IN_CHUNK)
 
     return documents
